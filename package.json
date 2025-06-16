@@ -1,0 +1,35 @@
+{
+  "name": "newcypress",
+  "version": "1.0.0",
+  "description": "Cypress framework in TypeScript",
+  "license": "ISC",
+  "author": "HaHoang",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "lint": "eslint . --ext .ts,.js",
+    "open": "cypress open",
+    "reset_frw": "rm -rf node_modules package-lock.json && npm install",
+    "delete:reports": "rm -rf cypress/reports/* || true",
+    "prereport": "npm run delete:reports",
+    "allure:generate": "allure generate cypress/reports/allure-results -o cypress/reports/allure-report",
+    "allure:open": "allure open cypress/reports/allure-report",
+    "test:allure": "npm run prereport && npm run test && npm run allure:generate && npm run allure:open || (echo 'Test failed' && npm run allure:generate && npm run allure:open)"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@types/cypress": "^1.1.6",
+    "@types/node": "^24.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "allure-cypress": "^3.2.2",
+    "eslint": "^9.29.0",
+    "eslint-plugin-cypress": "^5.1.0",
+    "eslint-plugin-react": "^7.37.5",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0"
+  }
+}

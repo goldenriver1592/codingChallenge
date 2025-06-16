@@ -1,0 +1,12 @@
+npm init
+npm install typescript --save-dev
+npm install ts-node --save-dev
+npx cypress open
+npm install --save-dev @types/cypress@latest
+npm install --save-dev @types/node@latest
+http://docs.cypress.io/app/references/configuration
+https://docs.cypress.io/app/tooling/typescript-support
+npm install --save-dev eslint
+https://eslint.org/docs/latest/use/getting-started
+npx eslint --init
+https://eslint.org/docs/latest/use/getting-started#initializing-configuration
