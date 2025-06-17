@@ -1,6 +1,6 @@
 // Global setup & teardown hooks for Cypress tests
 
-const browser = Cypress.env('CYPRESS_BROWSER_NAME') || 'unknown';
+const browser = Cypress.env("browserName") || 'unknown';
 
 // Runs once before all tests in suite
 before(`Browser name: ${browser}`, () => {
