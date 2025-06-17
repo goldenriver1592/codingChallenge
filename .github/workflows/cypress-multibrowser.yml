@@ -59,12 +59,8 @@ jobs:
         if: always()
         run: npm run allure:generate
 
-      - name: Upload Allure Report
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: allure-report-${{ matrix.browser }}
-          path: |
-            cypress/reports/allure-report/index.html
-            cypress/reports/allure-report/app.js
-            cypress/reports/allure-report/styles.css
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./cypress/reports/allure-report
