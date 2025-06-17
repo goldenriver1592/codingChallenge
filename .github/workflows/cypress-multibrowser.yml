@@ -26,7 +26,7 @@ jobs:
 
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
-      BROWSER: ${{ matrix.browser }}
+      CYPRESS_BROWSER_NAME: ${{ matrix.browser }}
 
     steps:
       - name: Checkout Code
@@ -52,8 +52,8 @@ jobs:
 
       - name: Run Cypress tests for each selected browser
         run: |
-            echo "Running tests on $BROWSER..."
-            BROWSER=$BROWSER npm run test || echo "Tests failed on $BROWSER"
+          echo "Running tests on $CYPRESS_BROWSER_NAME..."
+          npx cypress run --browser $CYPRESS_BROWSER_NAME || echo "Tests failed on $CYPRESS_BROWSER_NAME"
 
       - name: Upload Allure Results for ${{ matrix.browser }}
         if: always()

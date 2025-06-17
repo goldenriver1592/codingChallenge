@@ -1,10 +1,12 @@
 import { LoginPage } from "../support/pages/index.page";
 
-describe('Demo', () => {
+const browser = Cypress.env('CYPRESS_BROWSER_NAME') || 'unknown';
+
+describe(`Login Suite - ${browser}`, () => {
 
     let loginPage: LoginPage;
 
-    beforeEach('', () => {
+    beforeEach(() => {
         cy.visit("/");
         loginPage = new LoginPage();
     })

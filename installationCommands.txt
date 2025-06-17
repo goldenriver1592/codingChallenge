@@ -19,3 +19,7 @@ npm install --save-dev eslint-plugin-react @typescript-eslint/eslint-plugin @typ
 https://github.com/jsx-eslint/eslint-plugin-react
 npm install -D allure-cypress
 https://github.com/allure-framework/allure-js/tree/main/packages/allure-cypress
+//export allure report
+https://github.com/peaceiris/actions-gh-pages
+// download and merge reports from cross-browsers
+https://github.com/actions/download-artifact#merge-multiple-artifacts
