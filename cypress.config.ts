@@ -8,12 +8,11 @@ export default defineConfig({
     videosFolder: "cypress/reports/videos",
     setupNodeEvents(on, config) {
       const browserName = process.env.CYPRESS_BROWSER_NAME;
-      allureCypress(on, config, {
-        resultsDir: "cypress/reports/allure-results",
-      });
       // Set the browser name to Cypress env (will be used inside tests)
       config.env.browserName = browserName;
-      
+      allureCypress(on, config, {
+        resultsDir: "cypress/reports/allure-results",
+      });      
       return config;
     },
     specPattern: ['cypress/tests/**/*.{js,jsx,ts,tsx}', 'cypress/e2e/**/*.{js,jsx,ts,tsx}'],
