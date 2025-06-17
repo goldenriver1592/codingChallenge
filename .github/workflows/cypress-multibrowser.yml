@@ -55,12 +55,43 @@ jobs:
             echo "Running tests on $BROWSER..."
             BROWSER=$BROWSER npm run test || echo "Tests failed on $BROWSER"
 
-      - name: Generate Allure Report
+      - name: Upload Allure Results for ${{ matrix.browser }}
         if: always()
-        run: npm run allure:generate
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./cypress/reports/allure-report
+          name: allure-results-${{ matrix.browser }}
+          path: cypress/reports/allure-results
+
+
+  merge-and-deploy:
+      runs-on: ubuntu-latest
+      needs: cypress-tests
+
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+
+        - name: Install Dependencies
+          run: npm ci
+
+        - name: Download All Allure Results
+          uses: actions/download-artifact@v4
+          with:
+            pattern: allure-results-*
+            merge-multiple: true
+            path: cypress/reports/allure-results
+
+        - name: Generate Allure Report
+          run: npm run allure:generate
+
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./cypress/reports/allure-report          
+          
