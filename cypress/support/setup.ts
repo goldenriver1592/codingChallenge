@@ -1,14 +1,11 @@
 // Global setup & teardown hooks for Cypress tests
 
-(function defineDynamicBefore() {
-    const browser = Cypress.env('browserName') || 'unknown';
-  
-    before(`Browser name: ${browser}`, () => {
-      console.log(`>> Running setup for browser: ${browser}`);
-    });
-  
-    after(`Teardown for ${browser}`, () => {
-      console.log(`>> Completed tests on: ${browser}`);
-    });
-  })();
-  
+// Runs once before all tests in suite
+before(`Browser name: ${Cypress.env("browserName") || 'unknown'}`, () => {
+    console.log(`>> Running setup for browser: ${Cypress.env("browserName") || 'unknown'}`);
+});
+
+// Runs once after all tests
+after(`Teardown for ${Cypress.env("browserName") || 'unknown'}`,() => {
+    console.log(`>> Completed tests on: ${Cypress.env("browserName") || 'unknown'}`);
+});
