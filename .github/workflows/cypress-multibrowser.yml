@@ -1,0 +1,65 @@
+name: Cypress Multi-Browser (Manual Shell)
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Select branch to test'
+        required: false
+        default: 'main'
+      browsers:
+        description: 'Browsers to test (comma-separated)'
+        required: true
+        default: 'chrome'
+      reset_env:
+        description: 'Reset environment (clean install)?'
+        required: false
+        default: 'false'
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    env:
+      CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Optionally Reset Environment
+        if: ${{ github.event.inputs.reset_env == 'true' }}
+        run: npm run reset_frw
+
+      - name: Install Dependencies
+        if: ${{ github.event.inputs.reset_env != 'true' }}
+        run: npm ci
+
+      - name: Prepare Allure Report Folder
+        run: npm run prereport
+
+      - name: Run Cypress tests for each selected browser
+        run: |
+          IFS=',' read -ra BROWSERS <<< "${{ github.event.inputs.browsers }}"
+          for BROWSER in "${BROWSERS[@]}"; do
+            echo "Running tests on $BROWSER..."
+            BROWSER=$BROWSER npm run test || echo "Tests failed on $BROWSER"
+          done
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: cypress/reports/allure-report

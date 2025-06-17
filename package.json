@@ -7,14 +7,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run",
+    "test": "cypress run --browser $BROWSER",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
-    "reset_frw": "rm -rf node_modules package-lock.json && npm install",
+    "reset_frw": "rm -rf node_modules package-lock.json cypress/reports && npm install",
     "delete:reports": "rm -rf cypress/reports/* || true",
     "prereport": "npm run delete:reports",
-    "allure:generate": "allure generate cypress/reports/allure-results -o cypress/reports/allure-report",
-    "allure:open": "allure open cypress/reports/allure-report",
+    "allure:generate": "npx allure generate cypress/reports/allure-results -o cypress/reports/allure-report --clean",
+    "allure:open": "npx allure open cypress/reports/allure-report",
     "test:allure": "npm run prereport && npm run test && npm run allure:generate && npm run allure:open || (echo 'Test failed' && npm run allure:generate && npm run allure:open)"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
     "@types/node": "^24.0.2",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
+    "allure-commandline": "^2.34.0",
     "allure-cypress": "^3.2.2",
     "eslint": "^9.29.0",
     "eslint-plugin-cypress": "^5.1.0",
