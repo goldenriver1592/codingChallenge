@@ -8,9 +8,9 @@ on:
         required: false
         default: 'main'
       browsers:
-        description: 'Browsers to test (comma-separated)'
-        required: true
-        default: 'chrome'
+        description: 'Choose a specific browser (optional: chrome/firefox/edge)'
+        required: false
+        default: ''
       reset_env:
         description: 'Reset environment (clean install)?'
         required: false
@@ -20,8 +20,13 @@ jobs:
   cypress-tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        browser: ${{ fromJson(github.event.inputs.browser != '' && format('["{0}"]', github.event.inputs.browser) || '["chrome", "firefox", "edge"]') }}
+
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
+      BROWSER: ${{ matrix.browser }}
 
     steps:
       - name: Checkout Code
@@ -47,11 +52,8 @@ jobs:
 
       - name: Run Cypress tests for each selected browser
         run: |
-          IFS=',' read -ra BROWSERS <<< "${{ github.event.inputs.browsers }}"
-          for BROWSER in "${BROWSERS[@]}"; do
             echo "Running tests on $BROWSER..."
             BROWSER=$BROWSER npm run test || echo "Tests failed on $BROWSER"
-          done
 
       - name: Generate Allure Report
         if: always()
@@ -61,5 +63,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: cypress/reports/allure-report
+          name: allure-report-${{ matrix.browser }}
+          path: |
+            cypress/reports/allure-report/index.html
+            cypress/reports/allure-report/app.js
+            cypress/reports/allure-report/styles.css
