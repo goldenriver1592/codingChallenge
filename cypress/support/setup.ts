@@ -9,3 +9,13 @@ before(`Browser name: ${Cypress.env("browserName") || 'unknown'}`, () => {
 after(`Teardown for ${Cypress.env("browserName") || 'unknown'}`,() => {
     console.log(`>> Completed tests on: ${Cypress.env("browserName") || 'unknown'}`);
 });
+  
+// Runs before each test
+beforeEach(() => {
+  console.log(`Runs before each test`);
+});
+
+// Runs after each test
+afterEach(() => {
+    console.log(`Runs after each test`);
+});

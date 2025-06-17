@@ -1,8 +1,6 @@
 import { LoginPage } from "../support/pages/index.page";
 
-const browser = Cypress.env('CYPRESS_BROWSER_NAME') || 'unknown';
-
-describe(`Login Suite - ${browser}`, () => {
+describe(`Login Suite - ${Cypress.env("browserName") || 'unknown'}`, () => {
 
     let loginPage: LoginPage;
 
