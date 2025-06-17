@@ -10,3 +10,12 @@ npm install --save-dev eslint
 https://eslint.org/docs/latest/use/getting-started
 npx eslint --init
 https://eslint.org/docs/latest/use/getting-started#initializing-configuration
+npm install --save-dev prettier
+https://prettier.io/docs/install.html
+https://prettier.io/docs/en/configuration.html
+npm install --save-dev eslint-plugin-cypress
+https://github.com/cypress-io/eslint-plugin-cypress
+npm install --save-dev eslint-plugin-react @typescript-eslint/eslint-plugin @typescript-eslint/parser
+https://github.com/jsx-eslint/eslint-plugin-react
+npm install -D allure-cypress
+https://github.com/allure-framework/allure-js/tree/main/packages/allure-cypress

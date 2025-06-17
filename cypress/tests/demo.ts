@@ -1,8 +1,12 @@
-import { loginPage } from "../support/pages/index.page";
+import { LoginPage } from "../support/pages/index.page";
 
 describe('Demo', () => {
+
+    let loginPage: LoginPage;
+
     beforeEach('', () => {
         cy.visit("/");
+        loginPage = new LoginPage();
     })
 
     it('login', () => {

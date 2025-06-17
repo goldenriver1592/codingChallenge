@@ -26,4 +26,4 @@ export class LoginPage extends BasePage {
     }
 }
 
-export const loginPage = new LoginPage();
+export default LoginPage;
