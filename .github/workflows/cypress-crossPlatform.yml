@@ -1,0 +1,110 @@
+name: Cypress Cross-Platform & Multi-Browser
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Select branch to test'
+        required: false
+        default: 'main'
+      reset_env:
+        description: 'Reset environment (clean install)?'
+        required: false
+        default: 'false'
+
+jobs:
+  cypress-tests:
+    strategy:
+      matrix:
+        include:
+            - os: ubuntu-latest
+              browser: chrome
+            - os: ubuntu-latest
+              browser: firefox
+            - os: ubuntu-latest
+              browser: edge
+            - os: windows-latest
+              browser: chrome
+            - os: windows-latest
+              browser: firefox
+            - os: windows-latest
+              browser: edge
+            - os: macos-latest
+              browser: chrome
+            - os: macos-latest
+              browser: firefox
+            - os: macos-latest
+              browser: edge
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
+      CYPRESS_BROWSER_NAME: ${{ matrix.browser }}
+      RUNNER_OS: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Optionally Reset Environment
+        if: ${{ github.event.inputs.reset_env == 'true' }}
+        run: npm run reset_frw
+
+      - name: Install Dependencies
+        if: ${{ github.event.inputs.reset_env != 'true' }}
+        run: npm ci
+
+      - name: Prepare Allure Report Folder
+        run: npm run prereport
+
+      - name: Run Cypress Tests
+        run: |
+          echo "Running tests on OS: $RUNNER_OS | Browser: $CYPRESS_BROWSER_NAME"
+          npx cypress run --browser $CYPRESS_BROWSER_NAME || echo "Tests failed on $CYPRESS_BROWSER_NAME"
+
+      - name: Upload Allure Results - ${{ matrix.os }}-${{ matrix.browser }}
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.os }}-${{ matrix.browser }}
+          path: cypress/reports/allure-results
+
+  merge-and-deploy:
+    runs-on: ubuntu-latest
+    needs: cypress-tests
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Download All Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          merge-multiple: true
+          path: cypress/reports/allure-results
+
+      - name: Generate Allure Report
+        run: npm run allure:generate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./cypress/reports/allure-report

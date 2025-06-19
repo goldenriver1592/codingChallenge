@@ -10,6 +10,9 @@ export default defineConfig({
       const browserName = process.env.CYPRESS_BROWSER_NAME;
       // Set the browser name to Cypress env (will be used inside tests)
       config.env.browserName = browserName;
+      const osName = process.env.RUNNER_OS;
+      // Set the OS name to Cypress env (will be used inside tests)
+      config.env.osName = osName;
       allureCypress(on, config, {
         resultsDir: "cypress/reports/allure-results",
       });      
