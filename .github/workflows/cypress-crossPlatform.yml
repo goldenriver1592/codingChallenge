@@ -126,6 +126,9 @@ jobs:
           merge-multiple: true
           path: cypress/reports/allure-results
 
+      - name: Clean old Allure results
+        run: rm -rf cypress/reports/allure-report || true
+
       - name: Generate Allure Report
         run: npm run allure:generate
 
