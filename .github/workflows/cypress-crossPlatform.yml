@@ -71,12 +71,12 @@ jobs:
           restore-keys: |
             npm-cache-${{ runner.os }}-
 
-      - name: Install Dependencies
-        run: npm ci
-
       - name: Optionally Reset Environment
         if: ${{ github.event.inputs.reset_env == 'true' }}
         run: npm run reset_frw
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Verify Cypress binary
         run: npx cypress verify
