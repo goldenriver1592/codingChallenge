@@ -11,6 +11,10 @@ on:
         description: 'Reset environment (clean install)?'
         required: false
         default: 'false'
+      suite:
+        description: 'Test tag (e.g. smoke, regression)'
+        required: true
+        default: 'smoke'
 
 jobs:
   cypress-tests:
@@ -87,7 +91,8 @@ jobs:
       - name: Run Cypress Tests
         run: |
           echo "Running tests on OS: $RUNNER_OS | Browser: $BROWSER"
-          npx cypress run --browser $BROWSER || echo "Tests failed on $BROWSER"
+          export CYPRESS_GREP="${{ github.event.inputs.suite }}"
+          npm run test
         shell: bash
 
       - name: Upload Allure Results - ${{ matrix.os }}-${{ matrix.browser }}

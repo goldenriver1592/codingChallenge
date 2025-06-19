@@ -23,3 +23,4 @@ https://github.com/allure-framework/allure-js/tree/main/packages/allure-cypress
 https://github.com/peaceiris/actions-gh-pages
 // download and merge reports from cross-browsers
 https://github.com/actions/download-artifact#merge-multiple-artifacts
+npm install --save-dev @mmisty/cypress-grep cross-env

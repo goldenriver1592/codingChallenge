@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --browser $BROWSER",
+    "test": "cross-env CYPRESS_GREP=$CYPRESS_GREP CYPRESS_GREP_TAGS=true cypress run --browser $BROWSER",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
     "reset_frw": "rm -rf node_modules package-lock.json .npm cache dist .turbo cypress/reports ~/.cache/Cypress && npm install",
@@ -19,12 +19,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@mmisty/cypress-grep": "^1.10.1",
     "@types/cypress": "^1.1.6",
     "@types/node": "^24.0.2",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
     "allure-commandline": "^2.34.0",
     "allure-cypress": "^3.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.29.0",
     "eslint-plugin-cypress": "^5.1.0",
     "eslint-plugin-react": "^7.37.5",

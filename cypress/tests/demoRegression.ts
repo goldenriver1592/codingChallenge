@@ -1,6 +1,6 @@
 import { LoginPage } from "../support/pages/index.page";
 
-describe(`Login Suite - ${Cypress.env("browserName") || 'unknown'} - ${Cypress.env("osName") || 'unknown OS'}`, { tags: 'smoke' }, () => {
+describe(`Login ssss - ${Cypress.env("browserName") || 'unknown'} - ${Cypress.env("osName") || 'unknown OS'}`, { tags: 'regression' }, () => {
 
     let loginPage: LoginPage;
 
@@ -9,13 +9,13 @@ describe(`Login Suite - ${Cypress.env("browserName") || 'unknown'} - ${Cypress.e
         loginPage = new LoginPage();
     })
 
-    it('login smoke', () => {
+    it('login ssss', () => {
        cy.fixture('users').then((data) => {
         loginPage.login(data.validUser.username, data.validUser.password);
        })
     })
 
-    it('login in regression', () => {
+    it('login in ssss', () => {
        cy.fixture('users').then((data) => {
         loginPage.login(data.validUser.username, data.validUser.password);
        })

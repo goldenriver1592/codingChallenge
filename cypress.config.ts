@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress';
 import { allureCypress } from "allure-cypress/reporter";
+import { pluginGrep } from '@mmisty/cypress-grep/plugins';
 
 export default defineConfig({
   projectId: 'cypress2025',
@@ -7,6 +8,7 @@ export default defineConfig({
     screenshotsFolder: "cypress/reports/screenshots",
     videosFolder: "cypress/reports/videos",
     setupNodeEvents(on, config) {
+      pluginGrep(on, config);
       const browserName = process.env.BROWSER;
       // Set the browser name to Cypress env (will be used inside tests)
       config.env.browserName = browserName;

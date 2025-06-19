@@ -30,3 +30,5 @@ before(() => {
 
 // Import setup.ts file
 import './setup';
+
+import '@mmisty/cypress-grep/register';
