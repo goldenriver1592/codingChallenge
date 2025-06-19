@@ -10,7 +10,7 @@
     "test": "cypress run --browser $BROWSER",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
-    "reset_frw": "rm -rf node_modules package-lock.json .npm cache dist .turbo cypress/reports ~/.cache/Cypress",
+    "reset_frw": "rm -rf node_modules package-lock.json .npm cache dist .turbo cypress/reports ~/.cache/Cypress && npm install",
     "delete:reports": "rm -rf cypress/reports/* || true",
     "prereport": "npm run delete:reports",
     "allure:generate": "npx allure generate cypress/reports/allure-results -o cypress/reports/allure-report --clean",
