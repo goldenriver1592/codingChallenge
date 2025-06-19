@@ -40,7 +40,7 @@ jobs:
 
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
-      BROWSER: ${{ matrix.browser || 'chrome' }}
+      CYPRESS_BROWSER_NAME: ${{ matrix.browser || 'chrome' }}
       RUNNER_OS: ${{ matrix.os }}
 
     steps:
@@ -124,30 +124,9 @@ jobs:
           pattern: allure-results-*
           merge-multiple: true
           path: cypress/reports/allure-results
-        
-      - name: Generate timestamp VERSION
-        run: |
-          echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Generate Allure Report
-        run: |
-          mkdir -p cypress/reports/allure-report/$VERSION
-          npx allure generate cypress/reports/allure-results --clean -o cypress/reports/allure-report/$VERSION
-      
-      - name: Track report versions
-        run: |
-          cd cypress/reports/allure-report
-          echo $VERSION >> versions.txt
-          sort -ru versions.txt -o versions.txt
-
-      - name: Generate Allure homepage
-        run: |
-          cd cypress/reports/allure-report
-          echo "<html><head><title>Allure Reports</title></head><body><h1>Allure Report History</h1><ul>" > index.html
-          for version in $(cat versions.txt); do
-            echo "<li><a href=\"$version/index.html\">$version</a></li>" >> index.html
-          done
-          echo "</ul></body></html>" >> index.html
+        run: npm run allure:generate
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
