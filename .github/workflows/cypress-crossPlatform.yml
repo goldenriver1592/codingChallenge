@@ -89,6 +89,8 @@ jobs:
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
           echo "Running tests on OS: $RUNNER_OS | Browser: $BROWSER"
+          export BROWSER="${{ matrix.browser }}"
+          export CYPRESS_GREP="${{ github.event.inputs.suite }}"
           npm run test:ci
         shell: bash
 
