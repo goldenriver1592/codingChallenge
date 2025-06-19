@@ -73,9 +73,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Verify Cypress binary
-        run: npx cypress verify
-
       - name: Prepare Allure Report Folder
         run: npm run prereport
 
