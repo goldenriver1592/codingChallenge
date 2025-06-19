@@ -1,6 +1,6 @@
 import { LoginPage } from "../support/pages/index.page";
 
-describe(`Login ssss - ${Cypress.env("browserName") || 'unknown'} - ${Cypress.env("osName") || 'unknown OS'}`, { tags: 'regression' }, () => {
+describe(`Login ssss - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: 'regression' }, () => {
 
     let loginPage: LoginPage;
 

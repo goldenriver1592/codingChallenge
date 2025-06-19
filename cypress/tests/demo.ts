@@ -1,6 +1,6 @@
 import { LoginPage } from "../support/pages/index.page";
 
-describe(`Login Suite - ${Cypress.env("browserName") || 'unknown'} - ${Cypress.env("osName") || 'unknown OS'}`, { tags: 'smoke' }, () => {
+describe(`Login Suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: 'smoke' }, () => {
 
     let loginPage: LoginPage;
 
