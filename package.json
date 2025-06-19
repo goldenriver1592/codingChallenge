@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --browser $BROWSER",
+    "test": "cross-env BROWSER=$BROWSER cypress run --browser $BROWSER",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
     "reset_frw": "rm -rf node_modules package-lock.json cypress/reports && npm install",
