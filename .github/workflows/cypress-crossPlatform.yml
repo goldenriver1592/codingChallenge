@@ -44,8 +44,6 @@ jobs:
             browser: chrome
           - os: macos-latest
             browser: firefox
-          - os: macos-latest
-            browser: edge
 
     runs-on: ${{ matrix.os }}
     defaults:
@@ -55,7 +53,6 @@ jobs:
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
       BROWSER: ${{ matrix.browser }}
-      CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
       RUNNER_OS: ${{ matrix.os }}
 
     steps:
@@ -68,22 +65,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      - name: Cache Cypress binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            npm-cache-${{ runner.os }}-
 
       - name: Optionally Reset Environment
         if: ${{ github.event.inputs.reset_env == 'true' }}
