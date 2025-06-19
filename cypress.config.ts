@@ -7,7 +7,7 @@ export default defineConfig({
     screenshotsFolder: "cypress/reports/screenshots",
     videosFolder: "cypress/reports/videos",
     setupNodeEvents(on, config) {
-      const browserName = process.env.CYPRESS_BROWSER_NAME;
+      const browserName = process.env.BROWSER;
       // Set the browser name to Cypress env (will be used inside tests)
       config.env.browserName = browserName;
       const osName = process.env.RUNNER_OS;
