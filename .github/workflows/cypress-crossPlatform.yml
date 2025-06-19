@@ -87,7 +87,7 @@ jobs:
       - name: Run Cypress Tests
         run: |
           echo "Running tests on OS: $RUNNER_OS | Browser: $BROWSER"
-          npm run test || echo "Tests failed on $BROWSER"
+          npx cypress run --browser $BROWSER || echo "Tests failed on $BROWSER"
         shell: bash
 
       - name: Upload Allure Results - ${{ matrix.os }}-${{ matrix.browser }}

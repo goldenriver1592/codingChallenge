@@ -7,7 +7,7 @@ on:
         description: 'Select branch to test'
         required: false
         default: 'main'
-      browsers:
+      browser:
         description: 'Choose a specific browser (optional: chrome/firefox/edge)'
         required: false
         default: ''
