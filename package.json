@@ -9,6 +9,7 @@
   "scripts": {
     "test": "cypress run --browser $BROWSER",
     "test:ci": "cypress run --browser $BROWSER --env grep=$CYPRESS_GREP,grepTags=true",
+    "test:ci-win": "cross-env cypress run --browser %BROWSER% --env grep=%CYPRESS_GREP%,grepTags=true",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
     "reset_frw": "rm -rf node_modules package-lock.json ~/.cache/Cypress && npm install",
