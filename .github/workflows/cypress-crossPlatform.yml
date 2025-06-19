@@ -40,7 +40,7 @@ jobs:
 
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
-      CYPRESS_BROWSER_NAME: ${{ matrix.browser || 'chrome' }}
+      BROWSER: ${{ matrix.browser || 'chrome' }}
       RUNNER_OS: ${{ matrix.os }}
 
     steps:
@@ -67,8 +67,8 @@ jobs:
 
       - name: Run Cypress Tests
         run: |
-          echo "Running tests on OS: $RUNNER_OS | Browser: $CYPRESS_BROWSER_NAME"
-          npx cypress run --browser $CYPRESS_BROWSER_NAME || echo "Tests failed on $CYPRESS_BROWSER_NAME"
+          echo "Running tests on OS: $RUNNER_OS | Browser: $BROWSER"
+          npx cypress run --browser $BROWSER || echo "Tests failed on $BROWSER"
         shell: bash
 
       - name: Upload Allure Results - ${{ matrix.os }}-${{ matrix.browser }}
@@ -101,12 +101,33 @@ jobs:
           pattern: allure-results-*
           merge-multiple: true
           path: cypress/reports/allure-results
+        
+      - name: Generate timestamp VERSION
+        run: |
+          echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
       - name: Generate Allure Report
-        run: npm run allure:generate
+        run: |
+          mkdir -p cypress/reports/allure-report/$VERSION
+          npx allure generate cypress/reports/allure-results --clean -o cypress/reports/allure-report/$VERSION
+      
+      - name: Track report versions
+        run: |
+          cd cypress/reports/allure-report
+          echo $VERSION >> versions.txt
+          sort -ru versions.txt -o versions.txt
+
+      - name: Generate Allure homepage
+        run: |
+          cd cypress/reports/allure-report
+          echo "<html><head><title>Allure Reports</title></head><body><h1>Allure Report History</h1><ul>" > index.html
+          for version in $(cat versions.txt); do
+            echo "<li><a href=\"$version/index.html\">$version</a></li>" >> index.html
+          done
+          echo "</ul></body></html>" >> index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./cypress/reports/allure-report
+          publish_dir: ./cypress/reports/allure-report/$VERSION
