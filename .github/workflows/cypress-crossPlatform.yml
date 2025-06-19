@@ -53,6 +53,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-cache-${{ runner.os }}-
+
+      - name: Install cross-env on Windows
+        if: runner.os == 'Windows'
+        run: npm install --save-dev cross-env
+
+      - name: Verify Cypress binary
+        run: npx cypress verify
 
       - name: Optionally Reset Environment
         if: ${{ github.event.inputs.reset_env == 'true' }}
@@ -130,4 +153,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./cypress/reports/allure-report/$VERSION
+          publish_dir: ./cypress/reports/allure-report
