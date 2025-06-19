@@ -40,7 +40,7 @@ jobs:
 
     env:
       CYPRESS_BASE_URL: 'https://opensource-demo.orangehrmlive.com'
-      CYPRESS_BROWSER_NAME: ${{ matrix.browser }}
+      CYPRESS_BROWSER_NAME: ${{ matrix.browser || 'chrome' }}
       RUNNER_OS: ${{ matrix.os }}
 
     steps:
@@ -69,6 +69,7 @@ jobs:
         run: |
           echo "Running tests on OS: $RUNNER_OS | Browser: $CYPRESS_BROWSER_NAME"
           npx cypress run --browser $CYPRESS_BROWSER_NAME || echo "Tests failed on $CYPRESS_BROWSER_NAME"
+        shell: bash
 
       - name: Upload Allure Results - ${{ matrix.os }}-${{ matrix.browser }}
         if: always()
@@ -80,6 +81,7 @@ jobs:
   merge-and-deploy:
     runs-on: ubuntu-latest
     needs: cypress-tests
+    if: always()
 
     steps:
       - name: Checkout Code
