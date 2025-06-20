@@ -74,7 +74,9 @@ jobs:
         run: npm ci
 
       - name: Prepare Allure Report Folder
-        run: npm run prereport
+        run: |
+          npm run prereport
+          rm -rf cypress/reports/allure-results/allure-results-${{ matrix.os }}-${{ matrix.browser }} || true
 
       - name: Run Cypress Tests on Windows
         if: ${{ matrix.os == 'windows-latest' }}
@@ -126,9 +128,6 @@ jobs:
           merge-multiple: true
           path: cypress/reports/allure-results
 
-      - name: Clean old Allure results
-        run: rm -rf cypress/reports/allure-report || true
-
       - name: Generate Allure Report
         run: npm run allure:generate
 
@@ -137,5 +136,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./cypress/reports/allure-report
-          keep_files: false
-          force_orphan: true
