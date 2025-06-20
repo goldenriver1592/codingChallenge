@@ -18,17 +18,4 @@ import './commands'
 
 import 'allure-cypress';
 
-import { label} from 'allure-cypress';
-
-before(() => {
-  const browser = Cypress.env("browserName") || 'unknown browser';
-  const osName = Cypress.env("osName") || 'unknown OS'
-
-  // Add suite-level info
-  label('suite', `Test Suite - [${browser}] browser on [${osName}] OS`);
-});
-
-// Import setup.ts file
-import './setup';
-
 import '@mmisty/cypress-grep/register';

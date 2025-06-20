@@ -29,6 +29,21 @@ export const users = {
       "password": "invalidPw"
     },
 
+    "invalidAllEmpty": {
+      "username": "",
+      "password": ""
+    },
+
+    "invalidEmptyUsername": {
+      "username": "",
+      "password": "admin123"
+    },
+
+    "invalidEmptyPassword": {
+      "username": "Admin",
+      "password": ""
+    },
+
     "invalidAllSpaces": {
       "username": "   ",
       "password": "   "

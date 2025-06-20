@@ -14,6 +14,7 @@ export abstract class BaseLoggedInPage extends BasePage {
         this.sidePanel = new SidePanel(S.sidepanel);
         this.userDropdown = new UserDropdown(S.userDropdown);
     }
+    
     getPageTitle(): Cypress.Chainable<string> {
       return cy.get(S.headerTitle).invoke('text');
     }

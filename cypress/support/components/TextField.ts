@@ -1,4 +1,4 @@
-import { TextFieldSelectors as S } from "../constants/component/textFieldConstants";
+import { TextFieldSelectors as S, TextFieldMessage as M } from "../constants/component/textFieldConstants";
 import { BaseUIObject } from "../core/BaseUIObject";
 
 export class TextField extends BaseUIObject {
@@ -52,15 +52,23 @@ export class TextField extends BaseUIObject {
     }
 
     /**
-     * Check warning/error message attached to this field
+     * Check warning/error message is attached to this field
      * @param message expected error text
      */
     checkWarningMessage(message: string) {
         return super
             .get()
             .parent()
+            .parent()
             .find(S.warning)
             .should('be.visible')
             .and('contain.text', message);
+    }
+
+    /**
+     * Assert Required warning is attached to this fields 
+     */
+    haveRequiredWarning() {
+        return this.checkWarningMessage(M.required);
     }
 }
