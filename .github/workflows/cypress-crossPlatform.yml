@@ -12,9 +12,9 @@ on:
         required: false
         default: 'false'
       suite:
-        description: 'Test tag (e.g. UI, API, smoke, regression, performance)'
+        description: 'Test tag (e.g. @UI, @API,@UI+@smoke, @regression, @performance)'
         required: true
-        default: 'smoke'
+        default: '@smoke'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}

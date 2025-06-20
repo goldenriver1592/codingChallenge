@@ -2,7 +2,7 @@ import { LoginPage } from "../support/pages/index.page";
 import { users } from "../fixtures/users"
 import { DashboardPage } from "../support/pages/DashboardPage";
 
-describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['smoke', 'UI'] }, () => {
+describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['@smoke', '@UI'] }, () => {
 
     let loginPage: LoginPage;
 

@@ -16,7 +16,7 @@ export default defineConfig({
       config.env.osName = osName;
       allureCypress(on, config, {
         resultsDir: "cypress/reports/allure-results",
-      });      
+      });
       return config;
     },
     specPattern: ['cypress/tests/**/*.{js,jsx,ts,tsx}', 'cypress/e2e/**/*.{js,jsx,ts,tsx}'],
