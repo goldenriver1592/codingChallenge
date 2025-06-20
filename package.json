@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run --browser $BROWSER",
-    "test:ci": "cross-env CYPRESS_GREP=true CYPRESS_GREP_TAGS=$CYPRESS_GREP cypress run --browser $BROWSER",
-    "test:ci-win": "cross-env cypress run --browser %BROWSER% --env grep=true,grepTags=%CYPRESS_GREP%",
+    "test:ci": "cross-env CYPRESS_GREP=$CYPRESS_GREP CYPRESS_GREP_TAGS=true cypress run --browser $BROWSER",
+    "test:ci-win": "cross-env cypress run --browser %BROWSER% --env grep=%CYPRESS_GREP%,grepTags=true",
     "lint": "eslint . --ext .ts,.js",
     "open": "cypress open",
     "reset_frw": "rm -rf node_modules package-lock.json .npm cache dist .turbo cypress/reports ~/.cache/Cypress && npm install",
