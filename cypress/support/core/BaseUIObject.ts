@@ -1,25 +1,34 @@
 export abstract class BaseUIObject {
 
+    constructor(protected selector: string) {}
+
     /**
      * Get element by selector
      */
-    protected get(selector: string) {
-        return cy.get(selector);
+    get() {
+        return cy.get(this.selector);
     }
 
 
     /**
      * Click on element
      */
-    protected click(selector: string) {
-        return this.get(selector).click({ force: true });
+    click() {
+        return this.get().click({ force: true });
     }
 
 
     /**
      * Double-click on element
      */
-    protected doubleClick(selector: string) {
-        return this.get(selector).dblclick({ force: true });
+    doubleClick() {
+        return this.get().dblclick({ force: true });
+    }
+    
+    /**
+     * Verify element is visible
+     */
+    isVisible() {
+        return this.get().should('be.visible');
     }
 }

@@ -3,7 +3,6 @@ import { allureCypress } from "allure-cypress/reporter";
 import { pluginGrep } from '@mmisty/cypress-grep/plugins';
 
 export default defineConfig({
-  projectId: 'cypress2025',
   e2e: {
     screenshotsFolder: "cypress/reports/screenshots",
     videosFolder: "cypress/reports/videos",

@@ -1,0 +1,15 @@
+export const SidePanelSelectors = {
+    searchBox: ".oxd-main-menu-search input",
+    adminMenu: "a[href$='viewAdminModule']",
+    pimMenu: "a[href$='viewPimModule']",
+    leaveMenu: "a[href$='viewLeaveModule']",
+    timeMenu: "a[href$='viewTimeModule']",
+    recruitmentMenu: "a[href$='viewRecruitmentModule']",
+    myDetailsMenu: "a[href$='viewMyDetails']",
+    performanceMenu: "a[href$='viewPerformanceModule']",
+    dashboardMenu: "a[href$='/dashboard/index']",
+    directoryMenu: "a[href$='viewDirectory']",
+    maintenanceMenu: "a[href$='viewMaintenanceModule']",
+    claimMenu: "a[href$='viewClaimModule']",
+    buzzMenu: "a[href$='viewBuzz']",
+}

@@ -15,10 +15,17 @@ on:
         description: 'Reset environment (clean install)?'
         required: false
         default: 'false'
+      suite:
+        description: 'Test tag (e.g. UI, API, smoke, regression, performance)'
+        required: true
+        default: 'smoke'
 
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     strategy:
       matrix:
@@ -44,7 +51,6 @@ jobs:
         run: npm run reset_frw
 
       - name: Install Dependencies
-        if: ${{ github.event.inputs.reset_env != 'true' }}
         run: npm ci
 
       - name: Prepare Allure Report Folder

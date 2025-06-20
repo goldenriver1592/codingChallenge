@@ -12,7 +12,7 @@ on:
         required: false
         default: 'false'
       suite:
-        description: 'Test tag (e.g. smoke, regression)'
+        description: 'Test tag (e.g. UI, API, smoke, regression, performance)'
         required: true
         default: 'smoke'
 

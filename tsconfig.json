@@ -21,6 +21,7 @@
     "cypress/**/*.ts",
     "cypress/**/*.d.ts",
     "cypress.config.ts",
-    "cypress.d.ts"
+    "cypress.d.ts",
+    "cypress/**/*.spec.ts",
   ]
 }

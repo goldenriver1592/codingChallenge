@@ -1,13 +1,13 @@
-import { BaseUIObject } from "./BaseUIObject";
 
-export abstract class BasePage extends BaseUIObject {
+
+export abstract class BasePage {
 
     /**
      * Reload current page and load
      */
     reloadCurrentPage() {
         cy.reload();
-        cy.get('body').should('be.visible');
+        cy.get('#app', {timeout: 10000}).should('be.visible'); // #app should be add to constant file later (if more constant on this base page)
     }
 
     /**
@@ -15,7 +15,7 @@ export abstract class BasePage extends BaseUIObject {
      */
     visit(url: string) {
         cy.visit(url);
-        cy.get('main').should('be.visible');
+        cy.get('#app', {timeout: 10000}).should('be.visible');
     }
 
 }
