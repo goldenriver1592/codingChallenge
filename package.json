@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --browser $BROWSER",
+    "test:chrome": "cypress run --browser chrome",
     "test:ci": "cross-env CYPRESS_GREP_TAGS=$CYPRESS_GREP cypress run --browser $BROWSER",
     "test:ci-win": "cross-env cypress run --browser %BROWSER% --env grepTags=%CYPRESS_GREP%",
     "lint": "eslint . --ext .ts,.js",

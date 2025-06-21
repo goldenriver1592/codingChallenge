@@ -1,4 +1,4 @@
-import { LoginPage } from "../../support/pages/index.page";
+import { LoginPage } from "../../pages/index.page";
 
 describe(`Login ssss - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: 'API' }, () => {
 

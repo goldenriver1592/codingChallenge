@@ -7,6 +7,10 @@ export class ErrorAlert extends BaseUIObject {
         super(selector);
     }
 
+    /**
+     * Retrieves the visible error message text from the alert component.
+     * @returns A Chainable yielding the text content of the error alert.
+     */
     getErrorAlertText(): Cypress.Chainable<string> {
         return cy.get(S.alertText).invoke('text');
     }

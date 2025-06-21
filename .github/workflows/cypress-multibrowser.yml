@@ -56,10 +56,12 @@ jobs:
       - name: Prepare Allure Report Folder
         run: npm run prereport
 
-      - name: Run Cypress tests for each selected browser
+      - name: Run Cypress Tests on Linux and Mac
         run: |
-          echo "Running tests on $BROWSER..."
-          npx cypress run --browser $BROWSER || echo "Tests failed on $BROWSER"
+          echo "Running tests on OS: $RUNNER_OS | Browser: $BROWSER"
+          export BROWSER="${{ matrix.browser }}"
+          export CYPRESS_GREP="${{ github.event.inputs.suite }}"
+          npm run test:ci
         shell: bash
 
       - name: Upload Allure Results for ${{ matrix.browser }}

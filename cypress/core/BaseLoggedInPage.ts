@@ -1,5 +1,4 @@
 import { SidePanel } from "../components/SidePanel";
-import { UserDropdown } from "../components/UserDropdown";
 import { BasePage } from "./BasePage"
 import { BaseLoggedInPageSelectors as S } from "../constants/page/baseLoggedInPage";
 
@@ -7,18 +6,24 @@ import { BaseLoggedInPageSelectors as S } from "../constants/page/baseLoggedInPa
 export abstract class BaseLoggedInPage extends BasePage {
 
     protected sidePanel: SidePanel;
-    protected userDropdown: UserDropdown;
 
     constructor() {
         super();
         this.sidePanel = new SidePanel(S.sidepanel);
-        this.userDropdown = new UserDropdown(S.userDropdown);
     }
     
+    /**
+     * Retrieves the text of the current page's header title.
+     * @returns A Chainable yielding the header title string.
+     */
     getPageTitle(): Cypress.Chainable<string> {
       return cy.get(S.headerTitle).invoke('text');
     }
 
+    /**
+     * Provides access to the SidePanel component for interaction and assertion.
+     * @returns The initialized SidePanel instance.
+     */
     getSidePanel(): SidePanel {
       return this.sidePanel;
     }

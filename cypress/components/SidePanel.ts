@@ -37,6 +37,12 @@ export class SidePanel extends BaseUIObject {
         this.buzzMenu = new MainMenuItem(S.buzzMenu);
     }
 
+    // ---------- Actions ----------
+
+    /**
+     * Retrieves all visible menu items as MainMenuItem instances.
+     * @returns Chainable that yields an array of MainMenuItem objects for each visible menu link.
+     */
     getAllVisibleMenus(): Cypress.Chainable<MainMenuItem[]> {
         return cy.get(S.rootAllMenu)
             .find<HTMLAnchorElement>('li a:visible')
@@ -48,6 +54,10 @@ export class SidePanel extends BaseUIObject {
             })
     }
 
+    /**
+     * Retrieves the labels (text) of all visible menu items.
+     * @returns Chainable that yields an array of strings representing the menu labels.
+     */
     getAllVisibleMenuLabels(): Cypress.Chainable<string[]> {
         return this.getAllVisibleMenus().then((menus) => {
             // Start with an empty array in a Cypress chain
@@ -70,30 +80,56 @@ export class SidePanel extends BaseUIObject {
         });
     }
 
+    /**
+     * Gets the TextField object representing the side panel's search box.
+     * @returns The TextField instance for the search box.
+     */
     getSearchBox() {
         return this.searchBox;
     }
 
+    /**
+     * Types the given text into the side panel's search box.
+     * @param data - The string to input into the search box.
+     * @returns Chainable of the typing action.
+     */
     inputToSearchBox(data: string) {
         return this.getSearchBox().type(data);
     }
 
-    expectedMenusIsVisible(expectedMenu: string[]) {
-        this.getAllVisibleMenuLabels().then(labels => {
-            expect(labels)
-                .to.have.members(expectedMenu)
-                .and.to.have.length(expectedMenu.length);
-        })
-    }
-
+    /**
+     * Filters the predefined menu labels by matching the input text.
+     * @param inputText - Partial or full text to search within menu labels.
+     * @returns An array of expected labels containing the input text (case-insensitive).
+     */
     getExpectedLabel(inputText: string) {
         return SidePanelMenuLabels.filter(label => label.toLowerCase().includes(inputText.toLowerCase()));
     }
 
-    noneOfMenuIsVisible() {
-        return cy
+    // ---------- Assertion ----------
+
+    /**
+     * Asserts that exactly the provided menu labels are visible in the side panel.
+     * @param expectedMenu - Array of expected menu labels to verify.
+     */
+    expectedMenusVisible(expectedMenu: string[]) {
+        this.getAllVisibleMenuLabels().then(labels => {
+            expect(labels)
+                .to.have.members(expectedMenu,
+                    `Not all expected menus are visible. Expected: ${expectedMenu}, Actual: ${labels}`)
+                .and.to.have.length(expectedMenu.length,
+                    `Number of actual and expected menus are different. Expected: ${expectedMenu.length}, Actual: ${labels.length}`);
+        })
+    }
+
+    /**
+     * Asserts that no menu items are visible in the side panel.
+     */
+    noneOfMenuVisible() {
+        expect(cy
             .get(S.rootAllMenu)
             .find('li a:visible')
-            .should('have.length', 0);
+            .should('have.length', 0),
+            `Some menu are visible.`);
     }
 }

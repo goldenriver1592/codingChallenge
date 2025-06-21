@@ -9,6 +9,8 @@ export class TextField extends BaseUIObject {
         this.selector = selector;
     }
 
+    // ---------- Actions ----------
+
     /**
      * Clear the input field
      */
@@ -29,6 +31,8 @@ export class TextField extends BaseUIObject {
     type(text: string, options?: Partial<Cypress.TypeOptions>) {
         return super.get().should('be.visible').clear().type(text, options);
     }
+
+    // ---------- Assertion ----------
 
     /**
      * Assert input has expected value

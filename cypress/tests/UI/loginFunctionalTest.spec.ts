@@ -1,6 +1,6 @@
-import { LoginPage } from "../../support/pages/index.page";
+import { LoginPage } from "../../pages/index.page";
 import { users } from "../../fixtures/users"
-import { DashboardPage } from "../../support/pages/DashboardPage";
+import { DashboardPage } from "../../pages/DashboardPage";
 
 describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['@smoke', '@UI'] }, () => {
 
@@ -25,39 +25,39 @@ describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'}
 
         it('Logging in with valid credentials', () => {
             loginPage.login(users.validUser);
-            dashboardPage.dashboardPageTitleIsVissible();        
+            dashboardPage.dashboardPageTitleVissible();        
         })
     
-        it('Logging in with different case sensetive', () => {
+        it('Logging in with different case-sensitive username', () => {
             loginPage.login(users.caseSensitiveUser);
-            dashboardPage.dashboardPageTitleIsVissible();
+            dashboardPage.dashboardPageTitleVissible();
         })
     
-        it('Logging in with Username contains Trailing Spaces', () => {
+        it('Logging in with trailing spaces in username', () => {
             loginPage.login(users.trailingSpacesUser);
-            dashboardPage.dashboardPageTitleIsVissible();
-        })
-    
-        it('Logging in with Username contains Leading Spaces', () => {
-            loginPage.login(users.leadingSpacesUser);
-            dashboardPage.dashboardPageTitleIsVissible();
+            dashboardPage.dashboardPageTitleVissible();
         })
 
     })
 
     describe(`Functional invalid credential`, () => {
+    
+        it('Logging in with leading spaces in username', () => {
+            loginPage.login(users.leadingSpacesUser);
+            loginPage.invalidCredentialsAlertIsVisible();
+        })
 
-        it(`Logging in with invalid Username`, () => {
+        it(`Logging in with invalid username`, () => {
             loginPage.login(users.invalidUsername);
             loginPage.invalidCredentialsAlertIsVisible();
         })
 
-        it(`Logging in with invalid Password`, () => {
+        it(`Logging in with invalid password`, () => {
             loginPage.login(users.invalidPassword);
             loginPage.invalidCredentialsAlertIsVisible();
         })
 
-        it(`Logging in with all fields is empty`, () => {
+        it(`Logging in with both fields empty`, () => {
             loginPage.login(users.invalidAllEmpty);
             loginPage.getUsername().haveRequiredWarning();
             loginPage.getPassword().haveRequiredWarning();
@@ -73,7 +73,7 @@ describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'}
             loginPage.getPassword().haveRequiredWarning();
         })
 
-        it(`Logging in with all fields contain space only`, () => {
+        it(`Logging in with fields of spaces only`, () => {
             loginPage.login(users.invalidAllSpaces);
             loginPage.getUsername().haveRequiredWarning();
             loginPage.getPassword().haveRequiredWarning();
@@ -81,7 +81,7 @@ describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'}
     })
 
     // this case is skipped because the target web app did not handle it
-    it.skip(`Maximum invalid attemps edge case`, () => {
+    it.skip(`Maximum invalid attempts`, () => {
 
         for (let i=0; i < 5; i++) {
             loginPage.login(users.invalidPassword);
