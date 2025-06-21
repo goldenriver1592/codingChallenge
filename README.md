@@ -43,7 +43,7 @@ This repository contains an end-to-end automation testing framework built with C
    npm ci
    ```
 
-3. **Run tests locally**:
+3. **Run tests locally on Chrome**:
    - **Headless** (Chrome):
      ```bash
      npm run test:chrome
@@ -51,6 +51,11 @@ This repository contains an end-to-end automation testing framework built with C
    - **Interactive** (UI runner):
      ```bash
      npx cypress open
+     ```
+
+3. **Run tests locally and open allure report on Chrome**:
+     ```bash
+     npm run test:allure
      ```
 
 ## Run Tests via GitHub Actions

@@ -17,7 +17,7 @@
     "prereport": "npm run delete:reports",
     "allure:generate": "npx allure generate cypress/reports/allure-results --clean -o cypress/reports/allure-report",
     "allure:open": "npx allure open cypress/reports/allure-report",
-    "test:allure": "npm run prereport && npm run test && npm run allure:generate && npm run allure:open || (echo 'Test failed' && npm run allure:generate && npm run allure:open)"
+    "test:allure": "npm run prereport && npm run test:chrome && npm run allure:generate && npm run allure:open || (echo 'Test failed' && npm run allure:generate && npm run allure:open)"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
