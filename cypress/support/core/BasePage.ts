@@ -1,13 +1,15 @@
 
 
 export abstract class BasePage {
+    
+    protected readonly APP_ROOT_SELECTOR: string = '#app';
 
     /**
      * Reload current page and load
      */
     reloadCurrentPage() {
         cy.reload();
-        cy.get('#app', {timeout: 10000}).should('be.visible'); // #app should be add to constant file later (if more constant on this base page)
+        this.waitRootLoaded();
     }
 
     /**
@@ -15,7 +17,14 @@ export abstract class BasePage {
      */
     visit(url: string) {
         cy.visit(url);
-        cy.get('#app', {timeout: 10000}).should('be.visible');
+        this.waitRootLoaded();
+    }
+
+    /**
+     * Wait until root selector is loaded
+     */
+    waitRootLoaded() {
+        cy.get(this.APP_ROOT_SELECTOR, {timeout: 10000}).should('be.visible');
     }
 
 }

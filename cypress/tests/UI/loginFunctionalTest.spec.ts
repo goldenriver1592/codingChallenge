@@ -79,4 +79,14 @@ describe(`Login Functional Test Suite - ${Cypress.env("osName") || 'unknown OS'}
             loginPage.getPassword().haveRequiredWarning();
         })
     })
+
+    // this case is skipped because the target web app did not handle it
+    it.skip(`Maximum invalid attemps edge case`, () => {
+
+        for (let i=0; i < 5; i++) {
+            loginPage.login(users.invalidPassword);
+        }
+        loginPage.login(users.validUser);
+        loginPage.limitAttepmsAlertIsVisible();
+    })
 })

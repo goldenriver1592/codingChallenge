@@ -8,4 +8,5 @@ export const LoginPageSelectors = {
 
 export const LoginPageMessage = {
     invalidCredentials: "Invalid credentials",
+    limitAttemps: "Limited attemps"
 }

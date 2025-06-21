@@ -18,4 +18,8 @@ export abstract class BaseLoggedInPage extends BasePage {
     getPageTitle(): Cypress.Chainable<string> {
       return cy.get(S.headerTitle).invoke('text');
     }
+
+    getSidePanel(): SidePanel {
+      return this.sidePanel;
+    }
 }

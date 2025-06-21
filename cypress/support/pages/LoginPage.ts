@@ -51,6 +51,10 @@ export class LoginPage extends BasePage {
     invalidCredentialsAlertIsVisible() {
         this.getErrorAlertText().should('equal', M.invalidCredentials);
     }
+
+    limitAttepmsAlertIsVisible() {
+        this.getErrorAlertText().should('equal', M.limitAttemps);
+    }
 }
 
 export default LoginPage;

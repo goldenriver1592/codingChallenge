@@ -12,4 +12,20 @@ export const SidePanelSelectors = {
     maintenanceMenu: "a[href$='viewMaintenanceModule']",
     claimMenu: "a[href$='viewClaimModule']",
     buzzMenu: "a[href$='viewBuzz']",
+    rootAllMenu: "[class='oxd-main-menu']",
 }
+
+export const SidePanelMenuLabels = [
+    "Admin",
+    "PIM",
+    "Leave",
+    "Time",
+    "Recruitment",
+    "My Info",
+    "Performance",
+    "Dashboard",
+    "Directory",
+    "Maintenance",
+    "Claim",
+    "Buzz",
+]
