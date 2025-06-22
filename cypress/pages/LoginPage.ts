@@ -56,10 +56,12 @@ export class LoginPage extends BasePage {
      * Attempts to perform login with given credentials.
      * @param creds - Object containing username and password to input.
      */
-    login({ username, password }: Credentials) {
-        if (username) this.username.type(username);
-        if (password) this.password.type(password);
-        this.loginButton.click();
+    login({ username, password }: Credentials): Cypress.Chainable {
+        return cy.wrap(null).then(() => {
+            if (username) this.username.type(username);
+            if (password) this.password.type(password);
+            return this.loginButton.click();
+        });
     }
 
     // ---------- Assertion ----------

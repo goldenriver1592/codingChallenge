@@ -1,20 +1,16 @@
 import { users } from "../../fixtures/users";
 import { SidePanel } from "../../components/SidePanel";
 import DashboardPage from "../../pages/DashboardPage";
-import LoginPage from "../../pages/LoginPage";
 import { searchData } from "../../fixtures/searchData";
 
 
 describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['@smoke', 'UI']}, () => {
 
-    let loginPage: LoginPage;
     let dashboardPage: DashboardPage;
     let sidePanel: SidePanel;
 
     beforeEach(() => {
-        loginPage = new LoginPage();
-        loginPage.visit("/");
-        loginPage.login(users.validUser);
+        cy.loginViaUI(users.validUser);
         dashboardPage = new DashboardPage();
         sidePanel = dashboardPage.getSidePanel();
     })
