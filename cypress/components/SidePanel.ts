@@ -113,23 +113,25 @@ export class SidePanel extends BaseUIObject {
      * @param expectedMenu - Array of expected menu labels to verify.
      */
     expectedMenusVisible(expectedMenu: string[]) {
-        this.getAllVisibleMenuLabels().then(labels => {
-            expect(labels)
-                .to.have.members(expectedMenu,
-                    `Not all expected menus are visible. Expected: ${expectedMenu}, Actual: ${labels}`)
-                .and.to.have.length(expectedMenu.length,
-                    `Number of actual and expected menus are different. Expected: ${expectedMenu.length}, Actual: ${labels.length}`);
-        })
-    }
+        return this.getAllVisibleMenuLabels().then((actualLabels) => {
+          cy.log(`Expected menu labels: ${expectedMenu.join(', ')}`);
+          cy.log(`Actual visible labels: ${actualLabels.join(', ')}`);
+      
+          expect(actualLabels, 'All expected menus should be visible')
+            .to.have.members(expectedMenu);
+      
+          expect(actualLabels.length, 'Number of visible menus should match')
+            .to.equal(expectedMenu.length);
+        });
+      }
 
     /**
      * Asserts that no menu items are visible in the side panel.
      */
     noneOfMenuVisible() {
-        expect(cy
+        return cy
             .get(S.rootAllMenu)
             .find('li a:visible')
-            .should('have.length', 0),
-            `Some menu are visible.`);
+            .should('have.length', 0, 'No visible menu items should be present');
     }
 }

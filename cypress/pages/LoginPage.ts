@@ -70,24 +70,24 @@ export class LoginPage extends BasePage {
      * Verifies that the login page is currently visible by asserting its title.
      */
     loginPageIsVisible() {
-        expect(this.getPageTitle().should('equal', 'Login'),
-            "Login page is not visible");
+        return this.getPageTitle()
+        .should('equal', 'Login', `Login page is not visible`);
     }
 
     /**
      * Verifies that the invalid credentials alert is displayed with the expected message.
      */
     invalidCredentialsAlertIsVisible() {
-        expect(this.getErrorAlertText().should('equal', M.invalidCredentials),
-            "Invalid credentials alert is not visible");
+        return this.getErrorAlertText()
+        .should('equal', M.invalidCredentials, `Invalid credentials alert should be visible.`);
     }
 
     /**
      * Verifies that the limit attempts alert is displayed with the expected message.
      */
     limitAttepmsAlertIsVisible() {
-        expect(this.getErrorAlertText().should('equal', M.limitAttemps),
-            "Invalid credentials alert is not visible");
+        return this.getErrorAlertText()
+        .should('equal', M.limitAttemps, `Limit attempts alert should be visible.`);
     }
 }
 

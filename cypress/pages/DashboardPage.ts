@@ -10,8 +10,8 @@ export class DashboardPage extends BaseLoggedInPage {
      * If the title is not exactly 'Dashboard', the assertion will fail with a clear message.
      */
     dashboardPageTitleVissible() {
-        expect(this.getPageTitle().should('equal', 'Dashboard'),
-            `Dashboard page is not visible.`);
+        return this.getPageTitle()
+        .should('equal', 'Dashboard', `Dashboard page title should be visible.`);
     }
 }
 
