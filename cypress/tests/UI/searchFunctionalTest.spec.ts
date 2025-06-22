@@ -4,7 +4,7 @@ import DashboardPage from "../../pages/DashboardPage";
 import { searchData } from "../../fixtures/searchData";
 
 
-describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['@smoke', 'UI']}, () => {
+describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'} - ${Cypress.env("browserName") || 'unknown'}`, { tags: ['@smoke', 'UI'] }, () => {
 
     let dashboardPage: DashboardPage;
     let sidePanel: SidePanel;
@@ -37,10 +37,12 @@ describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'
         sidePanel.noneOfMenuVisible();
     })
 
-    searchData.specialchars.split("").forEach(value => {
-        it(`Searching with special characters: ${value}`, () => {
-            sidePanel.inputToSearchBox(value);
-            sidePanel.noneOfMenuVisible();
+    describe.only(`Searching with special characters`, () => {
+        searchData.specialchars.split("").forEach(value => {
+            it(`Searching with special characters: ${value}`, () => {
+                sidePanel.inputToSearchBox(value);
+                sidePanel.noneOfMenuVisible();
+            })
         })
 
     })
@@ -67,5 +69,5 @@ describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'
         sidePanel.noneOfMenuVisible();
     })
 
-    
+
 })
