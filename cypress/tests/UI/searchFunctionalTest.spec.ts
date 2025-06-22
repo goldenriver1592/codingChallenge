@@ -37,7 +37,7 @@ describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'
         sidePanel.noneOfMenuVisible();
     })
 
-    describe.only(`Searching with special characters`, () => {
+    describe(`Searching with special characters`, () => {
         searchData.specialchars.split("").forEach(value => {
             it(`Searching with special characters: ${value}`, () => {
                 sidePanel.inputToSearchBox(value);
