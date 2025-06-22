@@ -37,9 +37,12 @@ describe(`Search functional test suite - ${Cypress.env("osName") || 'unknown OS'
         sidePanel.noneOfMenuVisible();
     })
 
-    it('Special characters', () => {
-        sidePanel.inputToSearchBox(searchData.specialchars);
-        sidePanel.noneOfMenuVisible();
+    searchData.specialchars.split("").forEach(value => {
+        it.only(`Searching with special characters: ${value}`, () => {
+            sidePanel.inputToSearchBox(value);
+            sidePanel.noneOfMenuVisible();
+        })
+
     })
 
     it('Searching with space characters only', () => {

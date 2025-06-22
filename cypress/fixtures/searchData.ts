@@ -3,7 +3,7 @@ export const searchData = {
     partOfValidName: "a",
     misCase: "daSH",
     numberInput: "123",
-    specialchars: "#",
+    specialchars: `~\`!@#$%^&*()_-+={}[]|\\:;"'<>,.?/`,
     spacesOnly: "   ",
     nonExistingName: "nonExisting",
     beforeClean: "Performance",
