@@ -7,6 +7,15 @@ declare global {
         interface Chainable<Subject = any> {
 
 
+            // -------- API Commands --------
+
+            /**
+             * Logs in via the API
+             * @param user - Credentials object with username and password
+             */
+            loginViaApi(user: Credentials): Chainable<Subject>;
+
+
             // -------- Login Page Commands --------
 
             /**

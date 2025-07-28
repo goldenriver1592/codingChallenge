@@ -37,4 +37,6 @@
 // }
 
 // Import Login Page Commands:
-import './commands/pageCommands/loginPageCommands'
+import './commands/pageCommands/loginPageCommands';
+// Import API Commands:
+import './commands/apiCommands';

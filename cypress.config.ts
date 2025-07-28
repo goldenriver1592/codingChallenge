@@ -1,12 +1,18 @@
 import { defineConfig } from 'cypress';
 import { allureCypress } from "allure-cypress/reporter";
 import { pluginGrep } from '@mmisty/cypress-grep/plugins';
+import fs from 'fs';
 
 export default defineConfig({
   e2e: {
     screenshotsFolder: "cypress/reports/screenshots",
     videosFolder: "cypress/reports/videos",
     setupNodeEvents(on, config) {
+      on('task', {
+        fileExists(filepath: string) {
+          return fs.existsSync(filepath);
+        },
+      });
       pluginGrep(on, config);
       const browserName = process.env.BROWSER;
       // Set the browser name to Cypress env (will be used inside tests)
